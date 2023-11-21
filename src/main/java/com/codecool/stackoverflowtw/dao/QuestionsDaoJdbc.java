@@ -1,6 +1,7 @@
 package com.codecool.stackoverflowtw.dao;
 
 
+import com.codecool.stackoverflowtw.controller.dto.NewQuestionDTO;
 import com.codecool.stackoverflowtw.controller.dto.QuestionDTO;
 import com.codecool.stackoverflowtw.database.Database;
 
@@ -58,8 +59,49 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         }
         return null;
     }
+
+    @Override
+    public int addNewQuestion(NewQuestionDTO newQuestionDTO){
+        int viewed = 0;
+        int isAnswered = 0;
+        String sql = "insert into questions (title,description, user_id,question_date,viewed,is_answered)" +
+                " values(?,?,?,?,?,?)";
+        try {
+            Connection conn = getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, newQuestionDTO.title());
+            statement.setString(2,newQuestionDTO.description());
+            statement.setInt(3,newQuestionDTO.userId());
+            statement.setTimestamp(4,Timestamp.valueOf(LocalDateTime.now()));
+            statement.setInt(5,viewed);
+            statement.setInt(6,isAnswered);
+
+            return statement.executeUpdate();
+
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+
+        return 0;
+    }
+    @Override
+    public int deleteQuestion(int id){
+        String sql = "delete from questions where id = " + id;
+        try {
+            Connection conn = getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            return statement.executeUpdate();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+
+
     private QuestionDTO questionDTOBuilder(ResultSet resultSet){
-        System.out.println("hello");
         try {
             while(resultSet.next()){
                 int             id = resultSet.getInt("id");

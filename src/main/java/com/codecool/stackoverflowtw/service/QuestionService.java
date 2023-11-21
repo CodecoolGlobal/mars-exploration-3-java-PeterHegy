@@ -38,7 +38,7 @@ public class QuestionService {
 
     public int addNewQuestion(NewQuestionDTO question) {
         // TODO
-        LocalDateTime createdId = LocalDateTime.now();
+        questionsDAO.addNewQuestion(question);
         return 0;
     }
 }
