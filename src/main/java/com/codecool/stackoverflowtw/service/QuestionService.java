@@ -42,4 +42,8 @@ public class QuestionService {
     public boolean updateQuestionDescription(int id, String newDescription) {
         return questionsDAO.updateQuestionDescription(id, newDescription);
     }
+
+    public boolean updateQuestionIsAnswered(int id, boolean newBooleanValue) {
+        return questionsDAO.setAnwered(id, newBooleanValue);
+    }
 }

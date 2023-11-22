@@ -40,6 +40,10 @@ public class QuestionController {
     public boolean updateQuestionDescription(@PathVariable int id, @RequestBody String newDescription) {
         return questionService.updateQuestionDescription(id, newDescription);
     }
+    @PatchMapping("/update/isanswered/{id}")
+    public boolean updateIsAnswered(@PathVariable int id, @RequestBody boolean newBooleanValue) {
+        return questionService.updateQuestionIsAnswered(id, newBooleanValue);
+    }
 
     @DeleteMapping("/{id}")
     public boolean deleteQuestionById(@PathVariable int id) {
