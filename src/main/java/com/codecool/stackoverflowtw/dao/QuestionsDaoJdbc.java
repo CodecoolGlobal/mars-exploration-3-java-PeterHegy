@@ -154,4 +154,20 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean setAnwered(int id, boolean newBooleanValue) {
+        String sql = "UPDATE questions SET isAnswered = ? WHERE id = ?";
+        try {
+            Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setBoolean(1, newBooleanValue);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }
