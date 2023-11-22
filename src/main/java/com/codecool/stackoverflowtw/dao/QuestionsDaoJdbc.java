@@ -139,4 +139,19 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         return false;
     }
 
+    @Override
+    public boolean updateQuestionDescription(int id, String newDescription) {
+        String sql = "UPDATE questions SET description = ? WHERE id = ?";
+        try {
+            Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newDescription);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }
