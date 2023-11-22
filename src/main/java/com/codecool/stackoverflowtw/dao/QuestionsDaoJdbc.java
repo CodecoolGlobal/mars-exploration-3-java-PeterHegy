@@ -86,19 +86,19 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         return 0;
     }
     @Override
-    public int deleteQuestion(int id) {
+    public boolean deleteQuestion(int id) {
         String sql = "delete from questions where id = ?";
         try {
             Connection conn = getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return true;
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
-        return 0;
+        return false;
     }
-
 
 
     private QuestionDTO questionDTOBuilder(ResultSet resultSet){
@@ -120,4 +120,22 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         }
         return null;
     }
+
+    @Override
+    public boolean addViewToQuestion(int id) {
+        QuestionDTO currentVersion = getById(id);
+        String sql = "UPDATE questions SET viewed = ? WHERE id = ?";
+        try {
+            Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, currentVersion.viewed() + 1);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+            conn.close();
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
 }
