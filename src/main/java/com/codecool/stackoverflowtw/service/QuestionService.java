@@ -21,13 +21,13 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> getAllQuestions() {
-        // TODO
+
         return questionsDAO.getAll();
     }
 
     public
     QuestionDTO getQuestionById(int id) {
-        // TODO
+
         return questionsDAO.getById(id);
     }
 
@@ -37,8 +37,7 @@ public class QuestionService {
     }
 
     public int addNewQuestion(NewQuestionDTO question) {
-        // TODO
-        questionsDAO.addNewQuestion(question);
-        return 0;
+        return questionsDAO.addNewQuestion(question);
+
     }
 }
