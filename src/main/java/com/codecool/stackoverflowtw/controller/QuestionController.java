@@ -33,8 +33,17 @@ public class QuestionController {
         return questionService.addNewQuestion(question);
     }
 
+    @PostMapping("/update/{id}")
+    public boolean addOneViewToQuestion(@PathVariable int id) {return questionService.addOneViewToQuestion(id);}
+
+    @PostMapping("/update/{id}")
+    public boolean updateQuestionDescription(@PathVariable int id) {}
+
     @DeleteMapping("/{id}")
     public boolean deleteQuestionById(@PathVariable int id) {
         return questionService.deleteQuestionById(id);
     }
+
+
+
 }
