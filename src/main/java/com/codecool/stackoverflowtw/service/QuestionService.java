@@ -6,7 +6,6 @@ import com.codecool.stackoverflowtw.controller.dto.QuestionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -38,5 +37,9 @@ public class QuestionService {
     }
     public boolean addOneViewToQuestion(int id) {
         return questionsDAO.addViewToQuestion(id);
+    }
+
+    public boolean updateQuestionDescription(int id, String newDescription) {
+        return questionsDAO.updateQuestionDescription(id, newDescription);
     }
 }

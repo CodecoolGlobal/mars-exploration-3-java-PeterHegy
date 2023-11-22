@@ -33,11 +33,13 @@ public class QuestionController {
         return questionService.addNewQuestion(question);
     }
 
-    @PostMapping("/update/{id}")
+    @PatchMapping("/update/view/{id}")
     public boolean addOneViewToQuestion(@PathVariable int id) {return questionService.addOneViewToQuestion(id);}
 
-    @PostMapping("/update/{id}")
-    public boolean updateQuestionDescription(@PathVariable int id) {}
+    @PatchMapping("/update/description/{id}")
+    public boolean updateQuestionDescription(@PathVariable int id, @RequestBody String newDescription) {
+        return questionService.updateQuestionDescription(id, newDescription);
+    }
 
     @DeleteMapping("/{id}")
     public boolean deleteQuestionById(@PathVariable int id) {
