@@ -44,7 +44,6 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
     @Override
     public QuestionDTO getById(int questionId){
-
         String sql = "select * from questions where id = ?";
         try {
             Connection conn = getConnection();
@@ -84,11 +83,12 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         return false;
     }
     @Override
-    public boolean deleteQuestion(int id){
-        String sql = "delete from questions where id = " + id;
+    public boolean deleteQuestion(int id) {
+        String sql = "delete from questions where id = ?";
         try {
             Connection conn = getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
             statement.executeUpdate();
             return true;
         }catch (SQLException e){
@@ -96,7 +96,6 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         }
         return false;
     }
-
 
 
     private QuestionDTO questionDTOBuilder(ResultSet resultSet){
@@ -117,5 +116,55 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public boolean addViewToQuestion(int id) {
+        QuestionDTO currentVersion = getById(id);
+        String sql = "UPDATE questions SET viewed = ? WHERE id = ?";
+        try {
+            Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, currentVersion.viewed() + 1);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+            conn.close();
+            return true;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateQuestionDescription(int id, String newDescription) {
+        String sql = "UPDATE questions SET description = ? WHERE id = ?";
+        try {
+            Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newDescription);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean setAnwered(int id, boolean newBooleanValue) {
+        String sql = "UPDATE questions SET isAnswered = ? WHERE id = ?";
+        try {
+            Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setBoolean(1, newBooleanValue);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }

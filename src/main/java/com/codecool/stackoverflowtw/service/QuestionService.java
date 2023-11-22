@@ -6,7 +6,6 @@ import com.codecool.stackoverflowtw.controller.dto.QuestionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,11 +16,9 @@ public class QuestionService {
     @Autowired
     public QuestionService(QuestionsDAO questionsDAO) {
         this.questionsDAO = questionsDAO;
-
     }
 
     public List<QuestionDTO> getAllQuestions() {
-
         return questionsDAO.getAll();
     }
 
@@ -30,12 +27,22 @@ public class QuestionService {
     }
 
     public boolean deleteQuestionById(int id) {
-        // TODO
-        return false;
+        return questionsDAO.deleteQuestion(id);
     }
 
     public boolean addNewQuestion(NewQuestionDTO question) {
 
         return questionsDAO.addNewQuestion(question);
+    }
+    public boolean addOneViewToQuestion(int id) {
+        return questionsDAO.addViewToQuestion(id);
+    }
+
+    public boolean updateQuestionDescription(int id, String newDescription) {
+        return questionsDAO.updateQuestionDescription(id, newDescription);
+    }
+
+    public boolean updateQuestionIsAnswered(int id, boolean newBooleanValue) {
+        return questionsDAO.setAnwered(id, newBooleanValue);
     }
 }
