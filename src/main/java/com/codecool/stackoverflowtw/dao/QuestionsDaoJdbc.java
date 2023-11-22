@@ -132,6 +132,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             pstmt.setInt(2, id);
             pstmt.executeUpdate();
             conn.close();
+            return true;
         } catch(SQLException e) {
             System.out.println(e.getMessage());
         }
