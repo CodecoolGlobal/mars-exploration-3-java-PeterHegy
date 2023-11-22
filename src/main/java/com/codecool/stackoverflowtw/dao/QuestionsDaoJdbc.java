@@ -44,7 +44,6 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
     @Override
     public QuestionDTO getById(int questionId){
-
         String sql = "select * from questions where id = ?";
         try {
             Connection conn = getConnection();
@@ -87,11 +86,12 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         return 0;
     }
     @Override
-    public int deleteQuestion(int id){
-        String sql = "delete from questions where id = " + id;
+    public int deleteQuestion(int id) {
+        String sql = "delete from questions where id = ?";
         try {
             Connection conn = getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
             return statement.executeUpdate();
         }catch (SQLException e){
             System.out.println(e.getMessage());
