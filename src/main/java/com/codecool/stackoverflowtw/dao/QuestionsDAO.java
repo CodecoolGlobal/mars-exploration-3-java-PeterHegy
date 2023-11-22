@@ -15,6 +15,7 @@ public interface QuestionsDAO {
     int addNewQuestion(NewQuestionDTO newQuestionDTO);
 
     boolean addViewToQuestion(int id);
+    boolean updateQuestionDescription(int id);
 
     boolean deleteQuestion(int id);
 }
