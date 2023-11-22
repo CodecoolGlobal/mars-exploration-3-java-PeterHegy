@@ -25,9 +25,7 @@ public class QuestionService {
         return questionsDAO.getAll();
     }
 
-    public
-    QuestionDTO getQuestionById(int id) {
-
+    public QuestionDTO getQuestionById(int id) {
         return questionsDAO.getById(id);
     }
 
@@ -36,8 +34,8 @@ public class QuestionService {
         return false;
     }
 
-    public int addNewQuestion(NewQuestionDTO question) {
-        return questionsDAO.addNewQuestion(question);
+    public boolean addNewQuestion(NewQuestionDTO question) {
 
+        return questionsDAO.addNewQuestion(question);
     }
 }

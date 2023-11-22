@@ -12,7 +12,7 @@ public interface QuestionsDAO {
 
     QuestionDTO getById(int questionId);
 
-    int addNewQuestion(NewQuestionDTO newQuestionDTO);
+    boolean addNewQuestion(NewQuestionDTO newQuestionDTO);
 
-    int deleteQuestion(int id);
+    boolean deleteQuestion(int id);
 }
