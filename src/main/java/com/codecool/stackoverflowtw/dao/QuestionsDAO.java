@@ -16,6 +16,5 @@ public interface QuestionsDAO {
     boolean deleteQuestion(int id);
     boolean addViewToQuestion(int id);
     boolean updateQuestionDescription(int id, String description);
-    boolean deleteQuestion(int id);
     boolean setAnwered(int id, boolean newBooleanValue);
 }

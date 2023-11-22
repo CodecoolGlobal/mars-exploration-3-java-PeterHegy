@@ -115,7 +115,6 @@ fabric.properties
 .idea/**/azureSettings.xml
 .idea
 target
-
-target
+node_modules
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij
