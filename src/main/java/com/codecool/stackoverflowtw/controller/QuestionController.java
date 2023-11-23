@@ -29,8 +29,8 @@ public class QuestionController {
     }
 
     @PostMapping("/")
-    public boolean addNewQuestion(@RequestBody NewQuestionDTO question) {
-        return questionService.addNewQuestion(question);
+    public boolean addNewQuestion(@RequestBody NewQuestionDTO questionDTO) {
+        return questionService.addNewQuestion(questionDTO);
     }
 
     @PatchMapping("/update/view/{id}")

@@ -9,6 +9,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class QuestionsDaoJdbc implements QuestionsDAO {
     String userName = System.getenv("USERNAME");
@@ -63,18 +64,21 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     public boolean addNewQuestion(NewQuestionDTO newQuestionDTO){
         int viewed = 0;
         int isAnswered = 0;
-        String sql = "insert into questions (title,description, user_id,question_date,viewed,is_answered)" +
-                " values(?,?,?,?,?,?)";
+        Random random = new Random();
+
+        String sql = "insert into questions (id, title,description, user_id,question_date,viewed,is_answered)" +
+                " values(?,?,?,?,?,?,?)";
         try {
             Connection conn = getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setString(1, newQuestionDTO.title());
-            statement.setString(2,newQuestionDTO.description());
-            statement.setInt(3,newQuestionDTO.userId());
-            statement.setTimestamp(4,Timestamp.valueOf(LocalDateTime.now()));
-            statement.setInt(5,viewed);
-            statement.setInt(6,isAnswered);
+            statement.setInt(1, random.nextInt(99999));
+            statement.setString(2, newQuestionDTO.title());
+            statement.setString(3,newQuestionDTO.description());
+            statement.setInt(4,newQuestionDTO.userId());
+            statement.setTimestamp(5,Timestamp.valueOf(LocalDateTime.now()));
+            statement.setInt(6,viewed);
+            statement.setInt(7,isAnswered);
             statement.executeUpdate();
             return true;
         }catch (SQLException e){
