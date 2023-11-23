@@ -40,6 +40,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
+        System.out.println(questions.size());
         return questions;
     }
     @Override
@@ -100,7 +101,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     private QuestionDTO questionDTOBuilder(ResultSet resultSet){
         try {
-            while(resultSet.next()){
+
                 int             id = resultSet.getInt("id");
                 String          title = resultSet.getString("title");
                 String          description = resultSet.getString("description");
@@ -110,7 +111,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
                 boolean         isAnswered = resultSet.getBoolean("is_answered");
 
                 return new QuestionDTO(id,title,description,userId,createdAt,viewed,isAnswered);
-            }
+
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
@@ -166,5 +167,21 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+    public List<QuestionDTO> getQueriedQuestions(String orderBy, String sort) {
+        List<QuestionDTO> questions = new ArrayList<>();
+        System.out.println(orderBy + "+" + sort);
+        String sql = "select * from questions order by " +orderBy + " " + sort;
+        try {
+            Connection connection=getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                questions.add(questionDTOBuilder(resultSet));
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return questions;
     }
 }

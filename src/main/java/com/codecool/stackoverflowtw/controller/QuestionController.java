@@ -19,8 +19,13 @@ public class QuestionController {
     }
 
     @GetMapping("/all")
-    public List<QuestionDTO> getAllQuestions() {
-        return questionService.getAllQuestions();
+    public List<QuestionDTO> getAllQuestions(@RequestParam String filter, String sort) {
+        if(filter.equals("undefined") || sort.equals("undefined")){
+            return questionService.getAllQuestions();
+        }
+        return questionService.getQueriedQuestions(filter,sort);
+
+
     }
 
     @GetMapping("/{id}")

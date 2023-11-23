@@ -45,4 +45,8 @@ public class QuestionService {
     public boolean updateQuestionIsAnswered(int id, boolean newBooleanValue) {
         return questionsDAO.setAnwered(id, newBooleanValue);
     }
+
+    public List<QuestionDTO> getQueriedQuestions(String filter, String sort) {
+        return questionsDAO.getQueriedQuestions(filter,sort);
+    }
 }
