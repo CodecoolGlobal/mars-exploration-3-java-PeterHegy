@@ -40,6 +40,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
+        System.out.println(questions.size());
         return questions;
     }
     @Override
