@@ -28,12 +28,12 @@ public class AnswerController {
     }
 
     @GetMapping("/{id}")
-    public AnswerDTO getQuestionById(@PathVariable int id) {
+    public AnswerDTO getAnswerById(@PathVariable int id) {
         return answerService.getAnswerById(id);
     }
 
     @PostMapping("/")
-    public int addNewQuestion(@RequestBody NewAnswerDTO answer) {
+    public int addNewAnswer(@RequestBody NewAnswerDTO answer) {
         if(answerService.addNewAnswer(answer)) {
             return 200;
         }
@@ -41,7 +41,7 @@ public class AnswerController {
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteQuestionById(@PathVariable int id) {
+    public boolean deleteAnswerById(@PathVariable int id) {
         return answerService.deleteAnswerById(id);
     }
 
