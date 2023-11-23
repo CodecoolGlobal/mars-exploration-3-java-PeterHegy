@@ -60,7 +60,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     @Override
-    public int addNewQuestion(NewQuestionDTO newQuestionDTO){
+    public boolean addNewQuestion(NewQuestionDTO newQuestionDTO){
         int viewed = 0;
         int isAnswered = 0;
         String sql = "insert into questions (title,description, user_id,question_date,viewed,is_answered)" +
@@ -75,15 +75,12 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             statement.setTimestamp(4,Timestamp.valueOf(LocalDateTime.now()));
             statement.setInt(5,viewed);
             statement.setInt(6,isAnswered);
-
-            return statement.executeUpdate();
-
+            statement.executeUpdate();
+            return true;
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
-
-
-        return 0;
+        return false;
     }
     @Override
     public boolean deleteQuestion(int id) {

@@ -30,10 +30,9 @@ public class QuestionService {
         return questionsDAO.deleteQuestion(id);
     }
 
-    public int addNewQuestion(NewQuestionDTO question) {
-        // TODO
-        questionsDAO.addNewQuestion(question);
-        return 0;
+    public boolean addNewQuestion(NewQuestionDTO question) {
+
+        return questionsDAO.addNewQuestion(question);
     }
     public boolean addOneViewToQuestion(int id) {
         return questionsDAO.addViewToQuestion(id);
